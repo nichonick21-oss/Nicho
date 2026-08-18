@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulator Bucat</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    margin: 0;
+    padding: 30px;
+}
+
+/* =========================
+   TOMBOL MUSIK POJOK KANAN
+========================= */
+
+.music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    width: 50px;
+    height: 50px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #20dd0b;
+    color: white;
+
+    font-size: 22px;
+    cursor: pointer;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    z-index: 999;
+}
+
+.music-btn:hover {
+    background: #13b800;
+    transform: scale(1.05);
+}
+
+
+/* =========================
+   CONTAINER UTAMA
+========================= */
+
+.container {
+    width: 420px;
+    max-width: 100%;
+    margin: 40px auto;
+
+    background: white;
+    padding: 20px;
+
+    border-radius: 10px;
+    box-shadow: 0 0 10px #aaa;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+.menu {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.menu-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+
+/* =========================
+   INPUT NILAI
+========================= */
+
+input[type=number] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    margin-bottom: 15px;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+/* =========================
+   LIST BUFF
+========================= */
+
+.list {
+    padding: 5px;
+}
+
+.item {
+    margin: 8px 0;
+    padding: 9px;
+
+    border-radius: 5px;
+    background: #f7f7f7;
+}
+
+.item:hover {
+    background: #e9e9e9;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+    width: 100%;
+    padding: 10px;
+
+    margin-top: 10px;
+
+    background: #1976d2;
+    color: white;
+
+    border: 0;
+    cursor: pointer;
+
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+button:hover {
+    background: #125ca8;
+}
+
+
+/* =========================
+   PENGATURAN UKURAN
+========================= */
+
+.setting-row {
+    margin-bottom: 15px;
+}
+
+.setting-row label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.setting-row input[type=range] {
+    width: 100%;
+}
+
+.ukuran-info {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+
+/* =========================
+   HASIL
+========================= */
+
+.hasil {
+    margin-top: 20px;
+    padding: 15px;
+
+    background: #eee;
+    border-radius: 5px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   YOUTUBE PLAYER
+========================= */
+
+#player {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+    pointer-events: none;
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     TOMBOL MUSIK
+========================= -->
+
+<button
+    class="music-btn"
+    onclick="toggleMusic()"
+    id="musicButton"
+    title="Putar / Pause Musik"
+>
+    🎵
+</button>
+
+
+<!-- =========================
+     YOUTUBE PLAYER
+========================= -->
+
+<div id="player"></div>
+
+
+<!-- =========================
+     CONTAINER
+========================= -->
+
+<div class="container" id="calculator">
+
+
+    <h2>Kalkulator Bucat</h2>
+
+
+    <!-- =========================
+         MENU HITUNG
+    ========================= -->
+
+    <div class="menu">
+
+        <div class="menu-title">
+            🧮 Menu Hitung
+        </div>
+
+
+        <label>Nilai Awal</label>
+
+        <input
+            type="number"
+            id="nilai"
+            placeholder="Masukkan nilai"
+        >
+
+
+        <div class="list">
+
+
+            <div class="item">
+                <input
+                    type="checkbox"
+                    value="1"
+                    data-name="Rain"
+                >
+                Rain
+            </div>
+
+
+            <div class="item">
+                <input
+                    type="checkbox"
+                    value="1.4"
+                    data-name="Sandstrom"
+                >
+                Sandstrom
+            </div>
+
+
+            <div class="item">
+                <input
+                    type="checkbox"
+                    value="1.5"
+                    data-name="Blizzard"
+                >
+                Blizzard
+            </div>
+
+
+            <div class="item">
+                <input
+                    type="checkbox"
+                    value="1.5"
+                    data-name="Acid Rain (Poison)"
+                >
+                Acid Rain (Poison)
+            </div>
+
+
+            <div class="item">
+                <input
+                    type="checkbox"
+                    value="1.7"
+                    data-name="Lucky"
+                >
+                Lucky
+            </div>
+
+
+            <div class="item">
+                <input
+                    type="checkbox"
+                    value="1.7"
+                    data-name="Thunder"
+                >
+                Thunder
+            </div>
+
+
+            <div class="item">
+                <input
+                    type="checkbox"
+                    value="1.75"
+                    data-name="Bloodmoon"
+                >
+                Bloodmoon
+            </div>
+
+
+            <div class="item">
+                <input
+                    type="checkbox"
+                    value="1.8"
+                    data-name="Molten"
+                >
+                Molten
+            </div>
+
+
+            <div class="item">
+                <input
+                    type="checkbox"
+                    value="3"
+                    data-name="Starfall"
+                >
+                Starfall
+            </div>
+
+
+            <div class="item">
+                <input
+                    type="checkbox"
+                    value="3.5"
+                    data-name="Aurora"
+                >
+                Aurora
+            </div>
+
+
+        </div>
+
+
+        <button onclick="hitung()">
+            🧮 Hitung
+        </button>
+
+
+        <div class="hasil" id="hasil">
+            Isi yang atas dulu memek nabila! . . .
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         MENU PENGATURAN
+    ========================= -->
+
+    <div class="menu">
+
+        <div class="menu-title">
+            ⚙️ Pengaturan Ukuran
+        </div>
+
+
+        <div class="setting-row">
+
+            <label for="lebar">
+                Lebar Kalkulator
+            </label>
+
+            <input
+                type="range"
+                id="lebar"
+                min="300"
+                max="700"
+                value="420"
+                oninput="ubahUkuran()"
+            >
+
+            <div class="ukuran-info">
+                <span id="lebarText">420</span> px
+            </div>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <label for="padding">
+                Padding Kalkulator
+            </label>
+
+            <input
+                type="range"
+                id="padding"
+                min="10"
+                max="50"
+                value="20"
+                oninput="ubahUkuran()"
+            >
+
+            <div class="ukuran-info">
+                <span id="paddingText">20</span> px
+            </div>
+
+        </div>
+
+
+        <button onclick="resetUkuran()">
+            🔄 Reset Ukuran
+        </button>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================
+     YOUTUBE API
+========================= -->
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
+
+<script>
+
+/* =================================
+   MUSIK
+================================= */
+
+let player;
+let sedangMain = false;
+
+
+function onYouTubeIframeAPIReady() {
+
+    player = new YT.Player('player', {
+
+        height: '1',
+        width: '1',
+
+        videoId: 'gSpL-6AQy5I',
+
+        playerVars: {
+            autoplay: 0,
+            loop: 1,
+            playlist: 'gSpL-6AQy5I',
+            controls: 0,
+            rel: 0
+        },
+
+        events: {
+
+            onReady: function() {
+
+                player.setVolume(30);
+
+            }
+
+        }
+
+    });
+
+}
+
+
+function toggleMusic() {
+
+    if (!player) {
+
+        alert("Musik sedang dimuat, coba lagi.");
+
+        return;
+    }
+
+
+    if (sedangMain) {
+
+        player.pauseVideo();
+
+        document.getElementById("musicButton").innerHTML = "🎵";
+
+        sedangMain = false;
+
+    } else {
+
+        player.playVideo();
+
+        document.getElementById("musicButton").innerHTML = "⏸️";
+
+        sedangMain = true;
+
+    }
+
+}
+
+
+/* =================================
+   FORMAT ANGKA
+================================= */
+
+function formatAngka(x) {
+
+    return new Intl.NumberFormat('id-ID').format(x);
+
+}
+
+
+/* =================================
+   PERHITUNGAN
+================================= */
+
+function hitung() {
+
+    let nilai = Number(
+        document.getElementById("nilai").value
+    );
+
+
+    if (!nilai) {
+
+        alert("Masukkan nilai Batu");
+
+        return;
+
+    }
+
+
+    let total = 1;
+
+    let daftar = [];
+
+
+    let cek = document.querySelectorAll(
+        'input[type="checkbox"]:checked'
+    );
+
+
+    cek.forEach(function(item) {
+
+        total *= Number(item.value);
+
+        daftar.push(
+            item.dataset.name +
+            " x" +
+            item.value
+        );
+
+    });
+
+
+    if (cek.length == 0) {
+
+        alert("Pilih Buff terlebih dahulu");
+
+        return;
+
+    }
+
+
+    let hasil = nilai * total;
+
+
+    document.getElementById("hasil").innerHTML =
+
+        "<b>Buff yg dipilih:</b><br>" +
+
+        daftar.join("<br>") +
+
+        "<hr>" +
+
+        "Total Pengali : x" +
+
+        total +
+
+        "<br><br>" +
+
+        "Potensi Luck Batu : <b>" +
+
+        formatAngka(hasil) +
+
+        "</b>";
+
+}
+
+
+/* =================================
+   PENGATURAN UKURAN
+================================= */
+
+function ubahUkuran() {
+
+    let lebar =
+        document.getElementById("lebar").value;
+
+    let padding =
+        document.getElementById("padding").value;
+
+
+    let calculator =
+        document.getElementById("calculator");
+
+
+    calculator.style.width =
+        lebar + "px";
+
+
+    calculator.style.padding =
+        padding + "px";
+
+
+    document.getElementById("lebarText").innerText =
+        lebar;
+
+
+    document.getElementById("paddingText").innerText =
+        padding;
+
+}
+
+
+/* =================================
+   RESET UKURAN
+================================= */
+
+function resetUkuran() {
+
+    document.getElementById("lebar").value = 420;
+
+    document.getElementById("padding").value = 20;
+
+
+    ubahUkuran();
+
+}
+
+</script>
+
+
+</body>
+</html>
